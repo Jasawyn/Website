@@ -1,0 +1,255 @@
+/* 
+Notable credit and thanks for assets used on my website:
+Nodws - Fancy Buttons
+*/
+
+/* Title */
+/* houdini */
+@property --blink-opacity {
+    syntax: "<number>";
+    inherits: false;
+    initial-value: 1;
+}
+
+@keyframes blink-animation {
+    0%,
+    100% {
+        opacity: var(--blink-opacity, 1);
+    }
+    50% {
+        opacity: 0;
+    }
+}
+/* houdini */
+
+/* base */
+:root {
+    font-family: Inter, sans-serif;
+    --stripe-color: #191970;
+    --bg: var(--stripe-color);
+    --maincolor: var(--bg);
+}
+
+body {
+    width: 100%;
+    min-height: 100vh; /* Full height of the viewport */
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    justify-content: space-between; /* Space title at the top and buttons at the bottom */
+    align-items: center;
+    background: var(--bg);
+}
+
+/* custom */
+
+@keyframes smoothBg {
+    from {
+        background-position: 50% 50%, 50% 50%;
+    }
+    to {
+        background-position: 350% 50%, 350% 50%;
+    }
+}
+
+.wrapper {
+    width: 100%;
+    flex-grow: 1; /* Allows content to grow and occupy available space */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative; /* Allow for absolute positioning of children */
+}
+
+.hero {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    place-content: center;
+    place-items: center;
+    --stripes: repeating-linear-gradient(
+        100deg,
+        var(--stripe-color) 0%,
+        var(--stripe-color) 7%,
+        transparent 10%,
+        transparent 12%,
+        var(--stripe-color) 16%
+    );
+
+    --rainbow: repeating-linear-gradient(
+        100deg,
+        #4d194d 10%,
+        #3e1f47 15%,
+        #312244 20%,
+        #272640 25%,
+        #212f45 30%
+    );
+    background-image: var(--stripes), var(--rainbow);
+    background-size: 300%, 200%;
+    background-position: 50% 50%, 50% 50%;
+
+    filter: blur(10px) invert(100%);
+
+    mask-image: radial-gradient(ellipse at 100% 0%, black 40%, transparent 70%);
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--stripes), var(--rainbow);
+    background-size: 200%, 100%;
+    animation: smoothBg 60s linear infinite;
+    background-attachment: fixed;
+    mix-blend-mode: difference;
+}
+
+:has(:checked) {
+    --stripe-color: #000;
+}
+
+:has(:checked) .hero,
+:has(:checked) .hero::after {
+    filter: blur(10px) opacity(50%) saturate(200%);
+}
+
+.content {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    place-content: center;
+    place-items: center;
+    flex-flow: column;
+    gap: 4.5%;
+    text-align: center;
+    mix-blend-mode: difference;
+    filter: invert(1);
+    z-index: 1; /* Keep content above the background */
+}
+
+.h1--scalingSize {
+    font-size: calc(1rem + 5vw); /* Responsive font size */
+    text-align: center;
+    margin-top: 50px;
+    position: relative; /* Ensure title is positioned correctly */
+    z-index: 2; /* Ensure title is above the background */
+}
+
+/* Button container to position buttons at the bottom */
+.button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px; /* Adds some space at the bottom */
+}
+
+/* Button styles */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* To place title at the top and buttons at the bottom */
+    align-items: center;
+    background: var(--bg, #222); /* Custom background */
+}
+
+/* Fancy button styling */
+.fancy-btn {
+    display: inline-block;
+    position: relative; /* Enable proper positioning */
+    padding: 5px 15px; /* Small button size */
+    border: 2px solid #fda;
+    color: #fda;
+    font-family: 'Dancing Script', serif;
+    font-style: italic;
+    font-size: 20px; /* Smaller font */
+    text-decoration: none;
+    margin: 10px 0;
+    transition: color 0.4s;
+}
+
+.fancy-btn:after {
+    content: " ";
+    border: 2px solid rgba(0, 0, 0, 0);
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    transition: all 0.4s;
+}
+
+.fancy-btn:hover {
+    color: #eee;
+}
+
+#switch {
+    appearance: none;
+    opacity: 0;
+}
+
+[for="switch"] {
+    cursor: pointer;
+    transition: 0.15s linear(0 0%, 0.16 16.85%, 0.32 31.73%, 1 100%);
+    will-change: transform, font-weight;
+    padding: 0.5rem;
+}
+
+[for="switch"]:where(:hover, :active, :focus-within) {
+    transition: 0.3s ease;
+    animation: animSwitch 0.2s alternate;
+    & .icon {
+        animation-play-state: paused;
+    }
+}
+
+@keyframes animSwitch {
+    50% {
+        transform: scale(1.2);
+        font-weight: 900;
+    }
+}
+
+/* icon houdini */
+.icon {
+    width: 1lh;
+    height: 1lh;
+    aspect-ratio: 1/1;
+    padding: 0.25em 0.35rem;
+    border-radius: calc(1px / 0);
+    border: 1px dashed;
+    --blink-opacity: 1;
+    animation: blink-animation 2s ease-in-out infinite running;
+}
+
+/* challenge */
+.h1--scalingSize::before {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    background: white;
+    text-shadow: 0 0 1px #ffffff;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-color: white;
+    -webkit-mask: linear-gradient(#000 0 0) luminance;
+    mask: linear-gradient(#000 0 0) luminance, alpha;
+    backdrop-filter: blur(19px) brightness(12.5);
+    -webkit-text-stroke: 1px white;
+    display: flex;
+    margin: auto;
+    z-index: 1;
+    pointer-events: none;
+}
