@@ -1,0 +1,241 @@
+/* 
+Notable credit and thanks for assets used on my website:
+Nodws - Fancy Buttons
+*/
+
+/* houdini */
+@property --blink-opacity {
+    syntax: "<number>";
+    inherits: false;
+    initial-value: 1;
+}
+
+@keyframes blink-animation {
+    0%, 100% {
+        opacity: var(--blink-opacity, 1);
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Root Variables */
+:root {
+    font-family: Inter, sans-serif;
+    --stripe-color: #191970;
+    --bg: var(--stripe-color);
+    --maincolor: var(--bg);
+}
+
+/* Base Styling */
+body {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg);
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+/* Hero Section */
+@keyframes smoothBg {
+    from {
+        background-position: 50% 50%, 50% 50%;
+    }
+    to {
+        background-position: 350% 50%, 350% 50%;
+    }
+}
+
+.wrapper {
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+}
+
+.hero {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    --stripes: repeating-linear-gradient(
+        100deg,
+        var(--stripe-color) 0%,
+        var(--stripe-color) 7%,
+        transparent 10%,
+        transparent 12%,
+        var(--stripe-color) 16%
+    );
+
+    --rainbow: repeating-linear-gradient(
+        100deg,
+        #4d194d 10%,
+        #3e1f47 15%,
+        #312244 20%,
+        #272640 25%,
+        #212f45 30%
+    );
+
+    background-image: var(--stripes), var(--rainbow);
+    background-size: 300%, 200%;
+    background-position: 50% 50%, 50% 50%;
+    filter: blur(10px) invert(100%);
+    mask-image: radial-gradient(ellipse at 100% 0%, black 40%, transparent 70%);
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--stripes), var(--rainbow);
+    background-size: 200%, 100%;
+    animation: smoothBg 60s linear infinite;
+    background-attachment: fixed;
+    mix-blend-mode: difference;
+}
+
+/* Background Switch */
+:has(:checked) {
+    --stripe-color: #000;
+}
+
+:has(:checked) .hero,
+:has(:checked) .hero::after {
+    filter: blur(10px) opacity(50%) saturate(200%);
+}
+
+/* Content Styling */
+.content {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 4.5%;
+    text-align: center;
+    mix-blend-mode: normal;
+    filter: normal;
+    z-index: 1;
+}
+
+.h1--scalingSize {
+    font-size: calc(1rem + 5vw);
+    text-align: center;
+    position: relative;
+    z-index: 2;
+
+     /* Gradient text */
+     background: linear-gradient(90deg, #710000, #a63c06, #c36f09);
+     -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+}
+
+/* Button Container */
+.button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Fancy Button Styling */
+.fancy-btn {
+    display: inline-block;
+    padding: 8px 20px;
+    border: 2px solid #fda;
+    color: #fda;
+    font-family: 'Dancing Script', serif;
+    font-style: italic;
+    font-size: 20px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.fancy-btn:after {
+    content: "";
+    border: 2px solid transparent;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.4s ease;
+}
+
+.fancy-btn:hover {
+    color: #eee;
+    border-color: #eee;
+}
+
+/* Background Switch */
+#switch {
+    appearance: none;
+    opacity: 0;
+}
+
+[for="switch"] {
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: 0.15s linear;
+}
+
+[for="switch"]:hover {
+    animation: animSwitch 0.2s alternate;
+}
+
+@keyframes animSwitch {
+    50% {
+        transform: scale(1.2);
+        font-weight: 900;
+    }
+}
+
+/* Icon */
+.icon {
+    width: 1lh;
+    height: 1lh;
+    aspect-ratio: 1/1;
+    padding: 0.25em 0.35rem;
+    border-radius: 50%;
+    border: 1px dashed;
+    --blink-opacity: 1;
+    animation: blink-animation 2s ease-in-out infinite;
+}
+
+/* Title Effects */
+.h1--scalingSize::before {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    text-shadow: 0 0 1px #ffffff;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-color: white;
+    -webkit-mask: linear-gradient(#000 0 0) luminance;
+    backdrop-filter: blur(19px) brightness(12.5);
+    -webkit-text-stroke: 1px white;
+    display: flex;
+    margin: auto;
+    z-index: 1;
+    pointer-events: none;
+}
