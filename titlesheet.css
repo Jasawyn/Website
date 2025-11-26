@@ -230,7 +230,7 @@ body {
     text-shadow: 0 0 1px #ffffff;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-color: white;
+    background-color: transparent;
     -webkit-mask: linear-gradient(#000 0 0) luminance;
     backdrop-filter: blur(19px) brightness(12.5);
     -webkit-text-stroke: 1px white;
