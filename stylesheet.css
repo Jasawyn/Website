@@ -174,15 +174,13 @@ body {
     gap: 20px; /* Added gap for spacing between links */
 }
 
-.fit{
-    max-width: 99%;
-    max-height: 99%;
+.fit, .vidfit{
+     width: 100%;
+    height: auto;
+    max-width: 100%;
+    display: block;
 }
 
-.vidfit{
-    max-width: 100%;
-    height: auto;
-}
 
 .left {
     display: flex;
